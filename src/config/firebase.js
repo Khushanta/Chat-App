@@ -55,10 +55,12 @@ const logout = async () => {
 
     try {
         await signOut(auth)
+        return true
 
     } catch (error) {
         console.error(error);
         toast.error(error.code.split('/')[1].split('-').join(' '));
+        return false
     }
 
 }

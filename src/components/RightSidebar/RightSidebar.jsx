@@ -6,8 +6,26 @@ import { AppContext } from '../../context/AppContext'
 
 const RighSidebar = () => {
 
-  const { chatUser, messages } = useContext(AppContext)
+  const { chatUser, messages, setUserData,
+    setChatData,
+    setMessages,
+    setMessagesId,
+    setChatUser,
+    setChatVisible } = useContext(AppContext)
   const [msgImages, setMsgImages] = useState([])
+
+  const handleLogout = async () => {
+        const result = await logout();
+        if (result) {
+            // Clear app context state
+            setUserData(null);
+            setChatData(null);
+            setMessages([]);
+            setMessagesId(null);
+            setChatUser(null);
+            setChatVisible(false);
+        }
+      }
 
   useEffect(() => {
     let tempVar = [];
@@ -44,13 +62,13 @@ const RighSidebar = () => {
           <img src={assets.pic2} alt="" /> */}
         </div>
       </div>
-      <button onClick={() => logout()}>Logout</button>
+      <button onClick={handleLogout}>Logout</button>
 
     </div>
   )
     : (
       <div className="rs">
-        <button onClick={() => logout()}>Logout</button>
+        <button onClick={handleLogout}>Logout</button>
       </div>
     )
 }
